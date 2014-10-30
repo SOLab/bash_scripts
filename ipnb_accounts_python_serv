@@ -1,0 +1,49 @@
+http://ipnb2.solab.rshu.ru:8870-8889/
+
+monzik - 8881  / pwd:monzik
+mag - 8888 / asdzxc123
+
+export ipnb_user=roma
+
+DONT FORGET TO SET THE PORT
+
+sudo adduser $ipnb_user
+
+sudo mkdir -p /home/$ipnb_user/.ipython/profile_nbserver
+sudo mkdir /home/$ipnb_user/notebooks/
+sudo cp /home/mag/.ipython/profile_nbserver/ipython_notebook_config.py /home/$ipnb_user/.ipython/profile_nbserver/
+sudo cp /home/mag/.bashrc* /home/$ipnb_user/
+sudo cp -r /home/mag/.config/matplotlib/ /home/$ipnb_user/.config/
+sudo chown -R $ipnb_user:$ipnb_user /home/$ipnb_user/*
+
+
+# Change the configs
+cd /home/$ipnb_user/.ipython/profile_nbserver/
+
+sudo sed -i "s/c.NotebookApp.port = 8888/c.NotebookApp.port = 8883/g" /home/$ipnb_user/.ipython/profile_nbserver/ipython_notebook_config.py
+sudo sed -i "s/\/home\/mag\//\/home\/$ipnb_user\//g" /home/$ipnb_user/.ipython/profile_nbserver/ipython_notebook_config.py
+sudo sed -i "s/c.NotebookManager.notebook_dir = u'.*/c.NotebookManager.notebook_dir = u'\/home\/$ipnb_user\/notebooks\/'/g" /home/$ipnb_user/.ipython/profile_nbserver/ipython_notebook_config.py
+
+
+# generate the password sha1
+ipython -i -c 'from IPython.lib import passwd; passwd()'
+
+sudo sed -i "s/c.NotebookApp.password = u'.*/c.NotebookApp.password = u'sha1:c3e8534f176c:b255b8032c5ecea62b213b61d6804fec00bfdfac'/g" /home/$ipnb_user/.ipython/profile_nbserver/ipython_notebook_config.py
+
+sudo chown -R $ipnb_user:$ipnb_user /home/$ipnb_user/.config/*
+
+DONT FORGET TO SET THE PORT!!!
+sudo vim /home/$ipnb_user/.ipython/profile_nbserver/ipython_notebook_config.py
+
+sudo chown -R $ipnb_user:$ipnb_user /home/$ipnb_user/.ipython/
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub roma@10.172.0.15
+ssh roma@10.172.0.15
+
+
+screen ipython notebook --profile=nbserver
+
+sudo cp /home/monzik/initiateUbuntu.sh /home/$ipnb_user/
+sudo vim /home/$ipnb_user/initiateUbuntu.sh
+sudo chown -R $ipnb_user:$ipnb_user /home/$ipnb_user/initiateUbuntu.sh
+sudo adduser $ipnb_user fuse
