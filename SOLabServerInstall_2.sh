@@ -29,7 +29,7 @@ make && make install
 pip install --upgrade --force-reinstall pyzmq  # needed for IPython’s parallel computing features, qt console and notebook.
 pip install --upgrade tornado             # needed by the web-based notebook
 pip install --upgrade jsonschema jsonpointer # needed by ipython notebook
-pip install --upgrade matplotlib
+#~ pip install --upgrade matplotlib
 pip install --upgrade pandas
 pip install --upgrade sympy
 pip install --upgrade nose                # used by the test suite of nbconvert
@@ -41,8 +41,13 @@ pip install --upgrade netCDF4             # Python/numpy interface to netCDF
 
 cd ~/; [ -d matplotlib ] && rm -rf matplotlib;
 pip uninstall matplotlib
-git clone --recursive git://github.com/matplotlib/matplotlib.git && cd matplotlib && python setup.py install
-cd ~/; rm -rf matplotlib
+git clone --recursive git://github.com/matplotlib/matplotlib.git && cd matplotlib
+#~ Change hard coded limits of (32768, 32768) pixels for a large image 
+sed -i 's/if (rows >= 32768 || cols >= 32768) {/if (rows >= 128000 || cols >= 128000) {/' src/_image.h
+sed -i 's/throw "rows and cols must both be less than 32768";/throw "rows and cols must both be less than 128000";/'  src/_image.h
+python setup.py build
+python setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
+cd ~/; #rm -rf matplotlib
 
 cd ~/; [ -d basemap ] && rm -rf ipython;
 git clone --recursive git://github.com/matplotlib/basemap.git && cd basemap
@@ -117,3 +122,22 @@ python setup.py install
 #~ Manage XML2dict
 pip install --upgrade https://github.com/martinblech/xmltodict/archive/master.zip
 
+#~ Install pyGRIB for ncep support
+pip install --upgrade pygrib
+
+#~  Install pykdtree for Pyresample
+cd ~/; [ -d pykdtree ] && rm -rf pykdtree;
+git clone https://github.com/storpipfugl/pykdtree.git
+cd pykdtree
+python setup.py build
+python setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
+
+#~ Install numexpr for Pyresample
+pip install --upgrade  --force-reinstall numexpr
+python -c "import numexpr; numexpr.test()"
+
+#~ Installing Pyresample
+pip install --upgrade pyresample
+
+#~ Install redis for PosadaApi
+pip install --upgrade redis

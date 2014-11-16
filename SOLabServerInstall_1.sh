@@ -60,6 +60,8 @@ apt-get install -y -qq python-pip
 	python-sip-dev
 	python-qt4
 	subversion
+	python-gtk2
+	python-gtk2-dev
 	"
 
 #~ python-mpltoolkits.basemap
