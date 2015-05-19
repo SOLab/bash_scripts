@@ -1,7 +1,14 @@
+
+./initiateXUbuntu.sh; cd ~/Documents/repos/solab/PySOL/notebooks/; screen ipython notebook --profile=nbserver 
+
 http://ipnb2.solab.rshu.ru:8870-8889/
+
+sudo adduser sdi
+sudo usermod -aG sudo sdi
 
 monzik - 8881  / pwd:monzik
 mag - 8888 / asdzxc123
+sdi - no ipnb account yet / s0l4b
 
 export ipnb_user=roma
 

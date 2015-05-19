@@ -1,3 +1,6 @@
+
+./initiateXUbuntu.sh; cd ~/Documents/repos/solab/PySOL/notebooks/; screen ipython notebook --profile=nbserver 
+
 http://ipnb.solab.rshu.ru:8870-8889/
 
 nonamenix - 8880
@@ -5,7 +8,7 @@ monzik - 8881
 ilya   - 8882 / pwd:6Ovsiths
 karina   - 8883 / pwd:83ipnb
 sergey - 8884 / sergey:304inform
-borisnp - 8885 / 29Aug2013
+shigatsi - 8885 / shigatsi
 rinkorn - 8886 / Rinkorn2355 (ssh Rink2355)
 nansat - 8887 / smalahove
 mag - 8888 / asdzxc123
@@ -13,6 +16,14 @@ mag - 8888 / asdzxc123
 soloveva - 8879 / garpia113
 sdi - 8878 / s0l4b
 evgenym - 8877 / lobzik
+
+solstud / stud_sol
+
+oksana / oksana
+
+ssh-keygen -t rsa
+ssh-copy-id -i ~/.ssh/id_rsa.pub matsol@localhost
+
 
 export ipnb_user=roma
 

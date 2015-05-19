@@ -49,7 +49,7 @@ python setup.py build
 python setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
 cd ~/; #rm -rf matplotlib
 
-cd ~/; [ -d basemap ] && rm -rf ipython;
+cd ~/; [ -d basemap ] && rm -rf basemap;
 git clone --recursive git://github.com/matplotlib/basemap.git && cd basemap
 export GEOS_DIR=/usr
 python setup.py build
@@ -111,13 +111,14 @@ cd ~/; [ -d epr-api ] && rm -rf epr-api;
 git clone https://github.com/bcdev/epr-api
 cd epr-api; mkdir -p build/release
 make all_rel
-ln -s build/release/libepr_api.so /usr/local/lib/
+rm /usr/local/lib/libepr_api.so 
+cp build/release/libepr_api.so /usr/local/lib/
 ldconfig
 cd ~/; [ -d pyepr ] && rm -rf pyepr;
 git clone https://github.com/avalentino/pyepr
 cd pyepr
 python setup.py --epr-api-src=~/epr-api/src/ build
-python setup.py install
+python setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
 
 #~ Manage XML2dict
 pip install --upgrade https://github.com/martinblech/xmltodict/archive/master.zip
@@ -141,3 +142,9 @@ pip install --upgrade pyresample
 
 #~ Install redis for PosadaApi
 pip install --upgrade redis
+
+#~ Install Plotly for interactive plotting
+pip install --upgrade plotly
+
+#~ Install Bokeh for interactive plotting
+#~ pip install --upgrade bokeh
