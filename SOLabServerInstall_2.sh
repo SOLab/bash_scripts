@@ -148,3 +148,6 @@ pip install --upgrade plotly
 
 #~ Install Bokeh for interactive plotting
 #~ pip install --upgrade bokeh
+
+#~ Bringing Matplotlib to the Browser
+pip install --upgrade mpld3
