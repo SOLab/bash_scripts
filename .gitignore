@@ -70,4 +70,5 @@ docs/_build/
 # PyBuilder
 target/
 
-ipnb_accounts
+*ipnb_accounts*
+zeromq-4.0.5
