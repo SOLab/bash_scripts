@@ -6,12 +6,16 @@ http://ipnb2.solab.rshu.ru:8870-8889/
 sudo adduser sdi
 sudo usermod -aG sudo sdi
 
-monzik - 8881  / pwd:monzik
+monzik - 8881  / Y6gePruC/ monzik
 mag - 8888 / asdzxc123
-sdi - no ipnb account yet / s0l4b
-ublok - 8887 / s0l4b
 
-export ipnb_user=ublok
+
+scp -r /home/mag/.config/matplotlib/ mag@10.172.0.15:/home/mag/.config/
+scp -r /home/mag/.local/share/jupyter mag@10.172.0.15:/home/mag/.local/share/
+scp -r /home/mag/.jupyter/ mag@10.172.0.15:/home/mag/
+
+
+export ipnb_user=monzik
 
 DONT FORGET TO SET THE PORT
 
@@ -25,12 +29,13 @@ sudo cp -r IPython-notebook-extensions/ /home/$ipnb_user/
 sudo mkdir -p /home/$ipnb_user/.local/share/jupyter
 sudo cp -r /home/mag/.local/share/jupyter /home/$ipnb_user/.local/share/
 sudo chown -R $ipnb_user:$ipnb_user /home/$ipnb_user/*
+sudo chown -R $ipnb_user:$ipnb_user /home/$ipnb_user/.local/share/
 
 
 # Change the configs
 cd /home/$ipnb_user/.jupyter/
 
-sudo sed -i "s/c.NotebookApp.port = 8888/c.NotebookApp.port = 8887/g" /home/$ipnb_user/.jupyter/jupyter_notebook_config.py
+sudo sed -i "s/c.NotebookApp.port = 8888/c.NotebookApp.port = 8881/g" /home/$ipnb_user/.jupyter/jupyter_notebook_config.py
 sudo sed -i "s/\/home\/mag\//\/home\/$ipnb_user\//g" /home/$ipnb_user/.jupyter/jupyter_notebook_config.py
 sudo sed -i "s/c.NotebookApp.notebook_dir = u'.*/c.NotebookApp.notebook_dir = u'\/home\/$ipnb_user\/notebooks\/'/g" /home/$ipnb_user/.jupyter/jupyter_notebook_config.py
 
@@ -38,7 +43,7 @@ sudo sed -i "s/c.NotebookApp.notebook_dir = u'.*/c.NotebookApp.notebook_dir = u'
 # generate the password sha1
 ipython -i -c 'from IPython.lib import passwd; passwd()'
 
-sudo sed -i "s/c.NotebookApp.password = u'.*/c.NotebookApp.password = u'sha1:68857d9ee2d4:50f3fe595263e556b83681368185ce8794b2426a'/g" /home/$ipnb_user/.jupyter/jupyter_notebook_config.py
+sudo sed -i "s/c.NotebookApp.password = u'.*/c.NotebookApp.password = u'sha1:823bbc3fc1a9:825f248e7bf47fbba6e447a8fe84cdc5e78cfd49'/g" /home/$ipnb_user/.jupyter/jupyter_notebook_config.py
 
 sudo chown -R $ipnb_user:$ipnb_user /home/$ipnb_user/.config/*
 
@@ -48,8 +53,8 @@ sudo vim /home/$ipnb_user/.jupyter/jupyter_notebook_config.py
 sudo chown -R $ipnb_user:$ipnb_user /home/$ipnb_user/.jupyter/ -R
 
 ssh-keygen -y -f ~/.ssh/id_dsa > ~/.ssh/id_dsa.pub
-ssh-copy-id -i ~/.ssh/id_dsa.pub ublok@10.172.0.115
-ssh ublok@10.172.0.115
+ssh-copy-id -i ~/.ssh/id_dsa.pub monzik@10.172.0.15
+ssh monzik@10.172.0.15
 
 git clone https://github.com/ipython-contrib/IPython-notebook-extensions.git
 

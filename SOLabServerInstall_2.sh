@@ -53,15 +53,17 @@ cd ~/; [ -d basemap ] && rm -rf basemap;
 git clone --recursive git://github.com/matplotlib/basemap.git && cd basemap
 export GEOS_DIR=/usr
 python setup.py build
-python setup.py install
-cd ~/; rm -rf basemap
+python setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
+cd ~/; #rm -rf basemap
 
 #~ wget http://sourceforge.net/projects/matplotlib/files/matplotlib-toolkits/basemap-1.0.7/basemap-1.0.7.tar.gz
 #~ ln -s /usr/lib/libgeos-3.4.2.so /usr/lib/libgeos.so
 #~ pip install basemap-1.0.7.tar.gz
 
+pip install --upgrade --force-reinstall jupyter
 
-pip install --upgrade "ipython[notebook]"
+#~ pip install --upgrade "ipython[notebook]"
+
 #~ pip uninstall ipython
 #~ cd ~/; [ -d ipython ] && rm -rf basemap;
 #~ git clone --recursive git://github.com/ipython/ipython.git && cd ipython && python setup.py submodule && python setup.py install
@@ -104,6 +106,18 @@ apt-get autoremove && apt-get autoclean
 #~ pip install --upgrade simplekml # a python library for generating kml (or kmz)
 
 
+cd ~/; [ -d pycoast ] && rm -rf pycoast;
+git clone https://github.com/pytroll/pycoast.git
+cd pycoast
+# change _iterate_db in cw_base
+# replace # for i in range(level): to add lakes support
+# if type(level) == int:
+#     level = range(level-1,level)
+# for i in level:
+sed -i 's/for i in range(level):/if type(level) == int:\n            level = range(level-1,level)\n        for i in level:/' pycoast/cw_base.py
+python setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
+
+
 #~ install "ENVISAT Product Reader API for C"
 pip uninstall pyepr
 
@@ -137,8 +151,22 @@ python setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
 pip install --upgrade  --force-reinstall numexpr
 python -c "import numexpr; numexpr.test()"
 
+#~ Installing Theano
+apt-get install libopenblas-dev
+pip install --upgrade Theano
+if grep -Fxq "export OMP_NUM_THREADS" ~/.bashrc
+	then
+		echo "OMP_NUM_THREADS already set in bash_profile"
+	else
+		echo "export OMP_NUM_THREADS=16" >> ~/.bashrc
+fi
+THEANO_FLAGS=floatX=float32,device=gpu python /usr/local/lib/python2.7/dist-packages/theano/misc/check_blas.py
+
 #~ Installing Pyresample
-pip install --upgrade pyresample
+#~ pip install --upgrade pyresample
+cd ~/Documents/repos/solab/pyresample/
+python setup.py build
+python setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
 
 #~ Install redis for PosadaApi
 pip install --upgrade redis
@@ -151,3 +179,33 @@ pip install --upgrade plotly
 
 #~ Bringing Matplotlib to the Browser
 pip install --upgrade mpld3
+
+# smart progress meter
+sudo -H pip install -U tqdm
+
+# Pandas and statsmodels
+sudo -H pip install --upgrade statsmodels
+
+# Installing scikit-learn
+sudo -H pip install --upgrade scikit-learn
+
+
+
+
+#~ For cerbere
+#~ If the installation fails, check that the directory you specified in LIBRARY_DIRS contains libmfhdf.so and libdf.so.
+#~ They may have been renamed, preventing the linker to find them. 
+#~ For example, on Ubuntu 12.04, you can find these libraries as "libmfhdfalt.so" and "libdfalt.so".
+#~ To fix this, edit setup.py and set the correct names in the "libraries" variable (line 88). 
+#~ cd  ~/Documents/repos/solab/cerbere/
+#~ wget http://hdfeos.org/software/pyhdf/pyhdf-0.9.0.tar.gz
+#~ tar xvzf pyhdf-0.9.0.tar.gz; cd pyhdf-0.9.0/
+#~ export INCLUDE_DIRS=/usr/include/hdf; export LIBRARY_DIRS=/usr/lib; sudo -H pip install .
+#~ cd ~/Documents/repos/solab/cerbere/
+#~ sudo -H pip install .
+#~ cd ~/Documents/repos/solab/sar/
+#~ sudo -H pip install .
+
+#~ cd ~/Documents/repos/solab/PySOL/pySAR/
+#~ git remote add -t develop sar https://git.oceandatalab.com/gilles.guitton/sar.git
+#~ git fetch -v sar

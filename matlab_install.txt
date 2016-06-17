@@ -1,0 +1,18 @@
+
+vim ~/.basrc
+
+alias ml='ssh -Y matsol@localhost "cd /home/$USER; export 'USER=$USER'; export 'SAT_CONFIG_DIR=$SAT_CONFIG_DIR';  matlab -desktop $USER"'
+alias mlnd='ssh -Y matsol@localhost "cd /home/$USER/Documents/MATLAB/; export 'USER=$USER'; export 'SAT_CONFIG_DIR=$SAT_CONFIG_DIR';  matlab -nodesktop -nosplash -mwvisual 0xb0 $USER"'
+
+gksudo users-admin
+
+sudo adduser monzik matsol
+
+sudo cp /home/mag/.bashrc* /home/monzik/
+sudo chown monzik:monzik /home/monzik/ -R
+
+ssh-keygen -t rsa
+ssh-copy-id -i ~/.ssh/id_rsa.pub matsol@localhost
+
+ssh-keygen -f "/home/monzik/.ssh/known_hosts" -R 10.172.0.15
+ssh-copy-id -i ~/.ssh/id_dsa.pub mag@10.170.0.129
