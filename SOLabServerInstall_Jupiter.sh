@@ -127,3 +127,19 @@ jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 #~  ./initiateXUbuntu.sh; cd ~/Documents/repos/solab/PySOL/notebooks/; screen jupyter notebook --config=/home/mag/.ipython/profile_nbserver/ipython_notebook_config.py
 
+
+sudo apt-get install python-dev python3-dev python-pip python3-pip
+sudo -H pip3 install --upgrade --force-reinstall setuptools pip
+sudo -H pip3 install -U jupyter ipython3
+sudo -H pip3 install -U jupyter ipython
+sudo pip3 install ipykernel
+python3 -m ipykernel.kernelspec --user
+# sudo jupyter kernelspec list
+
+# To enable a Python 3 kernel when you're running the server on Python 2, it should be sufficient to do:
+# pip3 install ipykernel
+# python3 -m ipykernel.kernelspec --user
+
+# And if you run the server on Python 3 and want to add a Python2 kernel, do exactly the same on Python 2:
+# pip2 install ipykernel
+# python2 -m ipykernel.kernelspec --user
