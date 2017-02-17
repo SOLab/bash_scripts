@@ -128,6 +128,13 @@ cd ~/pyresample
 python3 setup.py build
 python3 setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
 
+cd ~/; [ -d basemap ] && rm -rf basemap;
+git clone --recursive git://github.com/matplotlib/basemap.git && cd basemap
+export GEOS_DIR=/usr
+python3 setup.py build
+python3 setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
+cd ~/; #rm -rf basemap
+
 
 #~ Installing NB Extensions
 pip3 install --upgrade psutil pyyaml

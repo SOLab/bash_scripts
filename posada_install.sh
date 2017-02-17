@@ -16,4 +16,5 @@ pip3 install --upgrade pip
 pip3 install numpy scipy pyresample shapely
 pip3 install --upgrade netcdf4
 pip3 install pygrib==2.0.1
+pip3 install --upgrade https://github.com/CooledCoffee/loggingd/archive/master.zip
 #pip install python-dateutil
