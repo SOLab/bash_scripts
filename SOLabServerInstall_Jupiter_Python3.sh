@@ -1,7 +1,6 @@
 sudo apt-get install python-dev python3-dev python-pip python3-pip
-sudo -H pip3 install -U jupyter ipython3
 sudo -H pip3 install -U jupyter ipython
-sudo pip3 install ipykernel
+sudo -H pip3 install ipykernel
 python3 -m ipykernel.kernelspec --user
 # sudo jupyter kernelspec list
 
@@ -88,26 +87,27 @@ sudo -H pip3 install --upgrade --force-reinstall requests[security]
 #~ apt-get install --no-install-recommends texlive-latex-extra texlive-fonts-recommended
 sudo apt-get install -y -qq texlive-full pandoc
 
-pip3 install --upgrade --force-reinstall pyzmq tornado jsonschema jsonpointer pandas sympy nose shapely pyshp pep8 ipython jupyter
-pip3 install --upgrade matplotlib h5py Jinja2 markupsafe pillow pyflakes pyproj rope sphinx pyepr
-pip3 install --upgrade markdown docutils pygments
-pip3 install --upgrade numpy scipy
+sudo -H pip3 install --upgrade --force-reinstall setuptools pip
+sudo -H pip3 install --upgrade --force-reinstall pyzmq tornado jsonschema jsonpointer pandas sympy nose shapely pyshp pep8 ipython jupyter
+sudo -H pip3 install --upgrade matplotlib h5py Jinja2 markupsafe pillow pyflakes pyproj rope sphinx pyepr
+sudo -H pip3 install --upgrade markdown docutils pygments
+sudo -H pip3 install --upgrade numpy scipy
 
 sudo apt-get install libhdf5-dev libnetcdf-dev netcdf-bin
-pip3 install --upgrade netcdf4
+sudo -H pip3 install --upgrade netcdf4
 
 #~ Manage XML2dict
-pip3 install --upgrade https://github.com/martinblech/xmltodict/archive/master.zip
+sudo -H pip3 install --upgrade https://github.com/martinblech/xmltodict/archive/master.zip
 
 #~ Install pyGRIB for ncep support
 sudo apt-get install libopenjpeg-dev
-pip3 install --upgrade pygrib
+sudo -H pip3 install --upgrade pygrib
 
 # Glymur: a Python interface for JPEG 2000 - for Sentinel-2
 sudo apt-get install libxml2-dev libxslt-dev python-dev # needed by lxlml
-pip3 install --upgrade glymur
+sudo -H pip3 install --upgrade glymur
  # classical Bayesian for Sentinel-2: cB4S2
-pip3 install --upgrade dill stopit
+sudo -H pip3 install --upgrade dill stopit
 
 #~ Install pykdtree for Pyresample
 cd ~/; [ -d pykdtree ] && rm -rf pykdtree;
@@ -117,7 +117,7 @@ python3 setup.py build
 python3 setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
 
 #~ Install numexpr for Pyresample
-pip3 install --upgrade --force-reinstall numexpr
+sudo -H pip3 install --upgrade --force-reinstall numexpr
 python3 -c "import numexpr; numexpr.test()"
 
 #~ Installing Pyresample
@@ -135,9 +135,12 @@ python3 setup.py build
 python3 setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
 cd ~/; #rm -rf basemap
 
+sudo -H pip3 install -U https://github.com/SOLab/pycoast/archive/master.zip
+sudo -H pip3 install -U loggingd tqdm
+
 
 #~ Installing NB Extensions
-pip3 install --upgrade psutil pyyaml
+sudo -H pip3 install --upgrade psutil pyyaml
 cd ~
 git clone https://github.com/ipython-contrib/IPython-notebook-extensions.git
 cd IPython-notebook-extensions/

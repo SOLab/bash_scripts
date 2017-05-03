@@ -60,7 +60,6 @@ apt-get install -y -qq python-pip python3-pip
 	libgdal-dev
 	libgdal1-dev
 	libgeos-dev
-	libgeos-3.5.1
 	libgrib-api-dev
 	libgrib-api-tools
 	libgrib2c-dev

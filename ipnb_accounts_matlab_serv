@@ -8,6 +8,7 @@ sudo usermod -aG sudo sdi
 
 monzik - 8881  / Y6gePruC/ monzik
 mag - 8888 / asdzxc123
+solstud - 8883 / stud_sol
 
 
 scp -r /home/mag/.config/matplotlib/ mag@10.172.0.15:/home/mag/.config/
@@ -43,7 +44,7 @@ sudo sed -i "s/c.NotebookApp.notebook_dir = u'.*/c.NotebookApp.notebook_dir = u'
 # generate the password sha1
 ipython -i -c 'from IPython.lib import passwd; passwd()'
 
-sudo sed -i "s/c.NotebookApp.password = u'.*/c.NotebookApp.password = u'sha1:823bbc3fc1a9:825f248e7bf47fbba6e447a8fe84cdc5e78cfd49'/g" /home/$ipnb_user/.jupyter/jupyter_notebook_config.py
+sudo sed -i "s/c.NotebookApp.password = u'.*/c.NotebookApp.password = u'sha1:a3d583686cf6:fd6318e2fa1efbe338f51a403f89a0c0287ead06'/g" /home/$ipnb_user/.jupyter/jupyter_notebook_config.py
 
 sudo chown -R $ipnb_user:$ipnb_user /home/$ipnb_user/.config/*
 
@@ -60,8 +61,8 @@ git clone https://github.com/ipython-contrib/IPython-notebook-extensions.git
 
 cd IPython-notebook-extensions/; python setup.py install
 
-screen jupyter notebook --config=/home/ublok/.jupyter/jupyter_notebook_config.py
-sudo su - ublok -c 'screen jupyter notebook --config=/home/ublok/.jupyter/jupyter_notebook_config.py'
+screen jupyter notebook --config=/home/monzik/.jupyter/jupyter_notebook_config.py
+sudo su - ublok -c 'screen jupyter notebook --config=/home/monzik/.jupyter/jupyter_notebook_config.py'
 
 sudo cp /home/monzik/initiateUbuntu.sh /home/$ipnb_user/
 sudo vim /home/$ipnb_user/initiateUbuntu.sh
