@@ -135,7 +135,10 @@ python3 setup.py build
 python3 setup.py install --record files.txt # cat files.txt | xargs sudo rm -rf
 cd ~/; #rm -rf basemap
 
+# Install SOLab Packages
 sudo -H pip3 install -U https://github.com/SOLab/pycoast/archive/master.zip
+sudo -H pip3 install -U https://github.com/SOLab/python-geotiepoints/archive/master.zip#egg=solab_geotiepoints
+sudo -H pip3 install -U https://github.com/SOLab/pyresample/archive/master.zip#egg=solab_pyresample
 sudo -H pip3 install -U loggingd tqdm
 
 
